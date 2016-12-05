@@ -133,7 +133,11 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `userid` int(4) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+	`password` varchar(50) DEFAULT NULL,
+	`firstname` varchar(50) DEFAULT NULL,
+	`lastname` varchar(50) DEFAULT NULL,
+	`birthday` date DEFAULT NULL,
   `position` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
