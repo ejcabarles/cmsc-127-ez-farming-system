@@ -8,57 +8,40 @@
 	padding-bottom: 20px;
 }
 
-/*header*/
 .header-text{
 	color: #3f3f3f;
 	font-size: 20px;
 }
 
-/*plots.html*/
 
-#collectiveContainer{
-	margin-top: 5vh;
-}
 #plots {
 	border: 1px solid #cecece;
 	padding: 10px;
-	height: 70vh;
-	overflow-y: scroll;
-}
-#requestContainer{
-	height: 80vh;
-}
-#requestForm{
+	height: 55vh;
 	overflow: scroll;
-	height: 64vh;
-	padding: 10px;
-	border: 1px solid #cecece;
-	margin-bottom: 5px;
-}
-#plotContainer{
-	height: 80vh;
 }
 
-/**/
 
-#listContainer{
-	height: 80vh;
-	margin-left: 2vh;
-	margin-top: 8vh;
-	margin-right: 2vh;
-}
 
 #requests {
 	border: 1px solid #cecece;
+	width: 85vw;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 10px;
 	padding-bottom: 10px;
-	height: 64vh;
+	height: 55vh;
 	overflow: scroll;
 }
 
+#plotContainer{
+	height: 80vh;
+}
 
 body{
 	color: #3f3f3f;
+}
+
+#requestModal{
+	width: 40vw;
 }

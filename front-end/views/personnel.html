@@ -9,12 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="bower">
 	<link rel="stylesheet" type="text/css" href="localCSS">
 	<title>Proj</title>
-	<style>
-	</style>
 <head>
-<body ng-controller="plotController" class="grey lighten-3">
+<body class="grey lighten-3">
 <div class="col s12 m12 l12">
-     <nav class="grey lighten-3">
+    <nav class="grey lighten-3">
        <div class="left nav-wrapper grey lighten-3">
           <a href="#" class="center header-text">EASY FARMING SYSTEM</a>
           <a href="/personnel" class="center">Personnel</a>
@@ -23,26 +21,28 @@
           <a href="/fertilizer" class="center">Fertilizer</a>
        </div>
     </nav>
- </div>
 
  <div id="collectiveContainer" class="row">
  	<div class="col s9">
  		<div id="plotContainer">
- 			<h6>{{title}}</h6>
+ 			<h6>PERSONNEL</h6>
  			<div id="plots" class="white">
 
 	 			<div class="row">
 	 				<div class="col s1">
 	 					<h6>ID</h6>
 	 				</div>
-	 				<div class="col s3">
-	 					<h6>Zone</h6>
+	 				<div class="col s2">
+	 					<h6>Username</h6>
 	 				</div>
 	 				<div class="col s3">
-	 					<h6>Row</h6>
+	 					<h6>Full Name</h6>
 	 				</div>
-	 				<div class="col s3">
-	 					<h6>Column</h6>
+	 				<div class="col s2">
+	 					<h6>Birthday</h6>
+	 				</div>
+	 				<div class="col s2">
+	 					<h6>Position</h6>
 	 				</div>
 	 				<div class="col s2">
 	 					<h6>Action</h6>
@@ -55,19 +55,19 @@
 
  	<div class="col s3">
  		<div id="requestContainer">
- 			<h6>Add a plot</h6>
+ 			<h6>Add a Personnel</h6>
 
  			<div class="white" id="requestForm">
-				<h6>PLOT 1</h6>
 				<div class="container">
 					  <div>
 					    <form>
 					    	<div class="row">
 					    	    <div class="input-field col s12">
-					    			<input placeholder="Zone" id="zone" type="text" class="validate"/>
-
-					    			<input placeholder="Row" id="row" type="text" class="validate">
-					    			<input placeholder="Column" id="row" type="text" class="validate">
+					    			<input placeholder="Username" id="username" type="text" class="validate"/>					  <input placeholder="Password" id="password" type="password" class="validate"/>
+					    			<input placeholder="First Name" id="fname" type="text" class="validate"/>
+					    			<input placeholder="Last Name" id="lname" type="text" class="validate">
+					    			<input placeholder="Birthday YYYY-MM-DD" id="bday" type="text" class="validate">
+					    			<input placeholder="Position" id="position" type="text" class="validate">
 					        	</div>
 					        </div>
 					    </form>
@@ -83,15 +83,12 @@
  </div>
 
 
-
-
-
-	
-	<script type="text/javascript" src="/plotController"></script>
-	<script type="text/javascript" src="/headerController"></script>
-	<script type="text/javascript" src="/personnelController"></script>
-
-	<script type="text/javascript" src="/plotDirective"></script>
-	<script type="text/javascript" src="/headerDirective"></script>
-	<script type="text/javascript" src="/personnelDirective"></script>
+		<div id="checkBoxGroup">
+			<form>
+				<p>
+			      <input type="checkbox" id="selectAll"/>
+			      <label for="selectAll">Select All</label>
+			    </p>
+			</form>
+		</div>
 </body>

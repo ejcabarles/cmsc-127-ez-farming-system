@@ -2,15 +2,15 @@
 (function() {
     angular
         .module('app')
-        .controller('plotController', plotController);
+        .controller('fertilizerController', fertilizerController);
 
-        function plotController($scope, $http) {
+        function fertilizerController($scope, $http) {
         	$http
 				.get('/viewPlotInformation')
 				.then(function(response){
 					console.log(response);
 				});
-            $scope.title = "Plots";
+            $scope.title = "Request";
             console.log("wee");
 
         }

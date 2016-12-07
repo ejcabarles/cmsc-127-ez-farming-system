@@ -9,12 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="bower">
 	<link rel="stylesheet" type="text/css" href="localCSS">
 	<title>Proj</title>
-	<style>
-	</style>
 <head>
-<body ng-controller="plotController" class="grey lighten-3">
+<body ng-controller="fertilizerController"  class="grey lighten-3">
 <div class="col s12 m12 l12">
-     <nav class="grey lighten-3">
+    <nav class="grey lighten-3">
        <div class="left nav-wrapper grey lighten-3">
           <a href="#" class="center header-text">EASY FARMING SYSTEM</a>
           <a href="/personnel" class="center">Personnel</a>
@@ -23,12 +21,11 @@
           <a href="/fertilizer" class="center">Fertilizer</a>
        </div>
     </nav>
- </div>
 
  <div id="collectiveContainer" class="row">
  	<div class="col s9">
  		<div id="plotContainer">
- 			<h6>{{title}}</h6>
+ 			<h6>FERTILIZER</h6>
  			<div id="plots" class="white">
 
 	 			<div class="row">
@@ -36,13 +33,19 @@
 	 					<h6>ID</h6>
 	 				</div>
 	 				<div class="col s3">
-	 					<h6>Zone</h6>
+	 					<h6>Brand</h6>
 	 				</div>
 	 				<div class="col s3">
-	 					<h6>Row</h6>
+	 					<h6>Type</h6>
 	 				</div>
-	 				<div class="col s3">
-	 					<h6>Column</h6>
+	 				<div class="col s1">
+	 					<h6>N</h6>
+	 				</div>
+	 				<div class="col s1">
+	 					<h6>P</h6>
+	 				</div>
+	 				<div class="col s1">
+	 					<h6>K</h6>
 	 				</div>
 	 				<div class="col s2">
 	 					<h6>Action</h6>
@@ -55,19 +58,21 @@
 
  	<div class="col s3">
  		<div id="requestContainer">
- 			<h6>Add a plot</h6>
+ 			<h6>Add a Fertilizer</h6>
 
  			<div class="white" id="requestForm">
-				<h6>PLOT 1</h6>
 				<div class="container">
 					  <div>
 					    <form>
 					    	<div class="row">
 					    	    <div class="input-field col s12">
-					    			<input placeholder="Zone" id="zone" type="text" class="validate"/>
-
-					    			<input placeholder="Row" id="row" type="text" class="validate">
-					    			<input placeholder="Column" id="row" type="text" class="validate">
+					    			<input placeholder="Brand" id="username" type="text" class="validate"/>
+					    			<input placeholder="Type" id="password" type="password" class="validate"/>
+					    			<div class="row">
+						    			<div class="col s4"><input placeholder="N" id="fname" type="text" class="validate"/></div>
+						    			<div class="col s4"><input placeholder="P" id="lname" type="text" class="validate"></div>
+						    			<div class="col s4"><input placeholder="K" id="bday" type="text" class="validate"></div>
+					    			</div>
 					        	</div>
 					        </div>
 					    </form>
@@ -83,15 +88,18 @@
  </div>
 
 
+		<div id="checkBoxGroup">
+			<form>
+				<p>
+			      <input type="checkbox" id="selectAll"/>
+			      <label for="selectAll">Select All</label>
+			    </p>
+			</form>
+		</div>
+	</div>
 
 
+	<script type="text/javascript" src="/fertilizerDirective"></script>
+	<script type="text/javascript" src="/fertilizerController"></script>
 
-	
-	<script type="text/javascript" src="/plotController"></script>
-	<script type="text/javascript" src="/headerController"></script>
-	<script type="text/javascript" src="/personnelController"></script>
-
-	<script type="text/javascript" src="/plotDirective"></script>
-	<script type="text/javascript" src="/headerDirective"></script>
-	<script type="text/javascript" src="/personnelDirective"></script>
 </body>
