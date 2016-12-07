@@ -9,6 +9,7 @@ const path = require('path');
 var loggedIn = false;
 
 let app = express();
+var router = express.Router()
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -17,11 +18,11 @@ var allowCrossDomain = function(req, res, next) {
 
     next();
 }
-
+    
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+    
 
 //app.use(express.static(__dirname + '/'));
 //app.use(express.static(__dirname + '/../frontend'));
@@ -54,6 +55,10 @@ app.get('/jquery', function(req, res) {
 app.get('/angular', function(req, res) {
     res.sendFile(path.join(__dirname + '/../angular.min.js'));
 });
+app.get('/angular-route', function(req, res) {
+    res.sendFile(path.join(__dirname + '/path/to/angular-route.js'));
+    console.log(res);
+});
 
 
 app.get('/', function(req, res) {
@@ -71,6 +76,15 @@ app.get('/headerController', function(req, res) {
 app.get('/plotController', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/controllers/plotController.js'));
 });
+app.get('/personnelController', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/controllers/personnelController.js'));
+});
+app.get('/requestController', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/controllers/requestController.js'));
+});
+app.get('/fertilizerController', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/controllers/fertilizerController.js'));
+});
 
 
 app.get('/headerDirective', function(req, res) {
@@ -78,6 +92,16 @@ app.get('/headerDirective', function(req, res) {
 });
 app.get('/plotDirective', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/directives/plotDirective.js'));
+});
+app.get('/personnelDirective', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/directives/personnelDirective.js'));
+});
+
+app.get('/requestDirective', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/directives/requestDirective.js'));
+});
+app.get('/fertilizerDirective', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/directives/fertilizerDirective.js'));
 });
 
 
@@ -87,4 +111,16 @@ app.get('/header', function(req, res) {
 });
 app.get('/plots', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/views/plots.html'));
+});
+app.get('/personnel', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/views/personnel.html'));
+});
+
+app.get('/request', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/views/request.html'));
+});
+
+
+app.get('/fertilizer', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/views/fertilizer.html'));
 });
