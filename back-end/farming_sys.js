@@ -16,23 +16,61 @@ connection.connect(function(err){
 
 // PUT FUNCTIONS HERE
 
+
+// PLOTS
 exports.viewPlotInformation = function(req, res) {
-	connection.query('SELECT * FROM plot', function(err, row) {
-		if(err) res.send('Error in viewing plot information!');
-		else res.send(row)
+	connection.query('call viewAllPlot()', function(err, row) {
+		if(err) res.send(err);
+		else res.send(row);
 	});
 };
 
 exports.addPlotInformation = function(req, res) {
 	var post = {
-		plotid : req.body.plotid,
 		zone : req.body.zone,
 		row : req.body.row,
 		col : req.body.col
 	};
 
-	connection.query('INSERT INTO plot SET ?', post, function(err, row) {
-		if(err) res.send('Error in adding plot information!');
+	connection.query('call addPlot(?, ?, ?)', [post.zone, post.row, post.col], function(err, row) {
+		if(err) res.send(err);
 		else res.send("Successfully added plot information")
 	});
 };
+
+
+
+
+
+// REQUEST
+exports.viewRequestInformation = function(req, res) {
+	connection.query('call viewAllRequest()', function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+}
+
+
+
+
+// FERTILIZER
+exports.viewFertilizerInformation = function(req, res) {
+	connection.query('call viewAlLFertilizer()', function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+}
+
+exports.addFertilizerInformation = function(req, res) {
+	var post = {
+		brand: req.body.brand,
+        type: req.body.type,
+        nitrogen: req.body.nitrogen,
+        phosphorus: req.body.phosphorus,
+        potassium: req.body.potassium,
+	}
+	connection.query('call addFertilizer(?, ?, ?, ?, ?)', [post.brand, post.type, post.nitrogen, post.phosphorus, post.potassium], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+}

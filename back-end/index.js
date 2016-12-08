@@ -31,10 +31,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
-
+// PLOTS
 app.get('/viewPlotInformation', function(req, res) {
 	farming_sys.viewPlotInformation(req, res);
 });
+app.post('/addPlotInformation', function(req, res) {
+    farming_sys.addPlotInformation(req, res);
+});
+
+
+
+
+
+// REQUEST
+app.get('/viewRequestInformation', function(req, res) {
+    farming_sys.viewRequestInformation(req, res);
+});
+
+
+
+
+// FERTILIZER
+app.get('/viewFertilizerInformation', function(req, res) {
+    farming_sys.viewFertilizerInformation(req, res);
+});
+app.post('/addFertilizerInformation', function(req, res) {
+    farming_sys.addFertilizerInformation(req, res);
+});
+
+
 
 
 app.listen(config.PORT, function (){

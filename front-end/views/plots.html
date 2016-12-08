@@ -49,6 +49,24 @@
 	 				</div>
 	 			</div>
 
+	 			<div class="row" ng-repeat="x in plotList">
+	 				<div class="col s1">
+	 					<h6>{{x.plotid}}</h6>
+	 				</div>
+	 				<div class="col s3">
+	 					<h6>{{x.zone}}</h6>
+	 				</div>
+	 				<div class="col s3">
+	 					<h6>{{x.row}}</h6>
+	 				</div>
+	 				<div class="col s3">
+	 					<h6>{{x.col}}</h6>
+	 				</div>
+	 				<div class="col s2">
+	 					<h6>Action</h6>
+	 				</div>
+	 			</div>
+
  			</div>
  		</div>
  	</div>
@@ -58,16 +76,15 @@
  			<h6>Add a plot</h6>
 
  			<div class="white" id="requestForm">
-				<h6>PLOT 1</h6>
 				<div class="container">
 					  <div>
 					    <form>
 					    	<div class="row">
 					    	    <div class="input-field col s12">
-					    			<input placeholder="Zone" id="zone" type="text" class="validate"/>
+					    			<input placeholder="Zone" ng-model="plotController.zone" id="zone" type="text" class="validate"/>
 
-					    			<input placeholder="Row" id="row" type="text" class="validate">
-					    			<input placeholder="Column" id="row" type="text" class="validate">
+					    			<input placeholder="Row" ng-value="row" id="row" type="text" class="validate">
+					    			<input placeholder="Column" ng-value="col" id="col" type="text" class="validate">
 					        	</div>
 					        </div>
 					    </form>
@@ -76,12 +93,11 @@
 			</div>
 
  		<div class="center">
- 			<button class="btn">SUBMIT</button>
+ 			<button class="btn" ng-click="submit()">SUBMIT</button>
  		</div>
  		</div>
  	</div>
  </div>
-
 
 
 

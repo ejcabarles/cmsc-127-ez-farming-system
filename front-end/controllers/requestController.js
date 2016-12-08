@@ -5,13 +5,13 @@
         .controller('requestController', requestController);
 
         function requestController($scope, $http) {
+            $scope.requestList = [];
         	$http
-				.get('/viewPlotInformation')
+				.get('/viewRequestInformation')
 				.then(function(response){
 					console.log(response);
+                    $scope.requestList = response.data[0];
 				});
-            $scope.title = "Request";
-            console.log("wee");
 
         }
 

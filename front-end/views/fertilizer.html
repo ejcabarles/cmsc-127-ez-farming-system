@@ -52,6 +52,31 @@
 	 				</div>
 	 			</div>
 
+
+	 			<div class="row" ng-repeat="x in fertilizerList">
+	 				<div class="col s1">
+	 					<h6>{{x.fertilizerid}}</h6>
+	 				</div>
+	 				<div class="col s3">
+	 					<h6>{{x.fertilizerbrand}}</h6>
+	 				</div>
+	 				<div class="col s3">
+	 					<h6>{{x.fertilizertype}}</h6>
+	 				</div>
+	 				<div class="col s1">
+	 					<h6>{{x.nitrogen}}</h6>
+	 				</div>
+	 				<div class="col s1">
+	 					<h6>{{x.phosphorus}}</h6>
+	 				</div>
+	 				<div class="col s1">
+	 					<h6>{{x.potassium}}</h6>
+	 				</div>
+	 				<div class="col s2">
+	 					<h6>Action</h6>
+	 				</div>
+	 			</div>
+
  			</div>
  		</div>
  	</div>
@@ -66,12 +91,12 @@
 					    <form>
 					    	<div class="row">
 					    	    <div class="input-field col s12">
-					    			<input placeholder="Brand" id="username" type="text" class="validate"/>
-					    			<input placeholder="Type" id="password" type="password" class="validate"/>
+					    			<input placeholder="Brand" id="brand" type="text" class="validate"/>
+					    			<input placeholder="Type" id="type" type="text" class="validate"/>
 					    			<div class="row">
-						    			<div class="col s4"><input placeholder="N" id="fname" type="text" class="validate"/></div>
-						    			<div class="col s4"><input placeholder="P" id="lname" type="text" class="validate"></div>
-						    			<div class="col s4"><input placeholder="K" id="bday" type="text" class="validate"></div>
+						    			<div class="col s4"><input placeholder="N" id="n" type="text" class="validate"/></div>
+						    			<div class="col s4"><input placeholder="P" id="p" type="text" class="validate"></div>
+						    			<div class="col s4"><input placeholder="K" id="k" type="text" class="validate"></div>
 					    			</div>
 					        	</div>
 					        </div>
@@ -81,7 +106,7 @@
 			</div>
 
  		<div class="center">
- 			<button class="btn">SUBMIT</button>
+ 			<button class="btn" ng-click="submit()">SUBMIT</button>
  		</div>
  		</div>
  	</div>
