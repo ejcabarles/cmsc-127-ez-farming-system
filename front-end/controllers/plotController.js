@@ -33,8 +33,25 @@
                                 console.log(response.data);
                                 $scope.plotList = response.data[0];
                             });
+                        zone.value = '';
+                        row.value = '';
+                        col.value = '';
                     });
-                
+            }
+
+            $scope.delete = function(){
+                var id = this.x.plotid;
+                $http
+                    .delete('/deletePlotInformation/' + id)
+                    .then(function(response){
+                        console.log(response);
+                        $http
+                            .get('/viewPlotInformation')
+                            .then(function(response){
+                                console.log(response.data);
+                                $scope.plotList = response.data[0];
+                            });
+                    });
             }
 
             $scope.toggle = function(){

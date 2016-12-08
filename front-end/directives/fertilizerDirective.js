@@ -4,7 +4,7 @@
         .module('app')
         .directive('fertilizer', fertilizer);
     
-    function plot() {
+    function fertilizer() {
         var directive = {
             restrict: 'E',
             templateUrl: '/fertilizer',

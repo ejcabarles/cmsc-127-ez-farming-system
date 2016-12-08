@@ -30,8 +30,28 @@
                                 console.log(response.data);
                                 $scope.fertilizerList = response.data[0];
                             });
+                            brand.value = '';
+                            type.value = '';
+                            nitrogen.value = '';
+                            phosphorus.value = '';
+                            potassium.value = '';
                     });
                 
+            }
+
+            $scope.delete = function(){
+                var id = this.x.fertilizerid
+                $http
+                    .delete('/deleteFertilizerInformation/' + id)
+                    .then(function(response){
+                        console.log(response);
+                        $http
+                            .get('/viewFertilizerInformation')
+                            .then(function(response){
+                                console.log(response.data);
+                                $scope.fertilizerList = response.data[0];
+                            });
+                    });
             }
 
         }

@@ -38,6 +38,9 @@ app.get('/viewPlotInformation', function(req, res) {
 app.post('/addPlotInformation', function(req, res) {
     farming_sys.addPlotInformation(req, res);
 });
+app.delete('/deletePlotInformation/:id', function(req, res) {
+    farming_sys.deletePlotInformation(req, res);
+});
 
 
 
@@ -58,6 +61,26 @@ app.get('/viewFertilizerInformation', function(req, res) {
 app.post('/addFertilizerInformation', function(req, res) {
     farming_sys.addFertilizerInformation(req, res);
 });
+app.delete('/deleteFertilizerInformation/:id', function(req, res){
+    farming_sys.deleteFertilizerInformation(req, res);
+});
+
+
+
+
+// PERSONNEL
+app.get('/viewPersonnelInformation', function(req, res) {
+    farming_sys.viewPersonnelInformation(req, res);
+});
+app.post('/addPersonnelInformation', function(req, res) {
+    farming_sys.addPersonnelInformation(req, res);
+});
+app.delete('/deletePersonnelInformation/:id', function(req, res){
+    farming_sys.deletePersonnelInformation(req, res);
+});
+app.put('/editPersonnelInformation/:id', function(req, res){
+    farming_sys.editPersonnelInformation(req, res);
+});
 
 
 
@@ -70,6 +93,9 @@ app.listen(config.PORT, function (){
 
 app.get('/bower', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/bower_components/Materialize/dist/css/materialize.min.css'));
+});
+app.get('/bower2', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/bower_components/Materialize/dist/js/materialize.js'));
 });
 app.get('/localCSS', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/style.css'));
