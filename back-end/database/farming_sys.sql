@@ -87,7 +87,7 @@ CREATE TABLE `fertilizer` (
   `phosphorus` int(1) DEFAULT NULL,
   `potassium` int(1) DEFAULT NULL,
   PRIMARY KEY (`fertilizerid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +166,7 @@ CREATE TABLE `request` (
   KEY `request_fertilizerid_fk` (`fertilizerid`),
   CONSTRAINT `request_fertilizerid_fk` FOREIGN KEY (`fertilizerid`) REFERENCES `fertilizer` (`fertilizerid`),
   CONSTRAINT `request_userid_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `user` (
   `birthday` date DEFAULT NULL,
   `position` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,9 +440,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser`(in uid int(4), in uname varchar(50), in pwd varchar(50), in ufname varchar(50), in ulname varchar(50), in bday date, in pos varchar(5))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addUser`(in uname varchar(50), in pwd varchar(50), in ufname varchar(50), in ulname varchar(50), in bday date, in pos varchar(5))
 begin 
-insert into user(userid, username, password, firstname, lastname, birthday, position) values (uid, uname, pwd, ufname, ulname, bday, pos);
+insert into user(username, password, firstname, lastname, birthday, position) values (uname, pwd, ufname, ulname, bday, pos);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -554,4 +554,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-07 16:58:33
+-- Dump completed on 2016-12-08 15:19:53
