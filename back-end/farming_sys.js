@@ -42,7 +42,20 @@ exports.deletePlotInformation = function(req, res) {
 		if(err) res.send(err);
 		else res.send(row);
 	});
-}
+};
+exports.editPlotInformation = function(req, res) {
+	var post = {
+        zone: req.body.zone,
+        row: req.body.row,
+        col: req.body.col,
+    }
+    console.log(post);
+    console.log(req.params.id);
+	connection.query('call editPlot(?, ?, ?, ?)', [req.params.id, post.zone, post.row, post.col], function(err, row){
+		if(err) res.send(err);
+		else res.send("Successful!");
+	});
+};
 
 
 
@@ -55,7 +68,7 @@ exports.viewRequestInformation = function(req, res) {
 		if(err) res.send(err);
 		else res.send(row);
 	});
-}
+};
 
 
 
@@ -86,7 +99,23 @@ exports.deleteFertilizerInformation = function(req, res) {
 		if(err) res.send(err);
 		else res.send(row);
 	});
-}
+};
+
+exports.editFertilizerInformation = function(req, res) {
+	var post = {
+        brand: req.body.brand,
+        type: req.body.type,
+        nitrogen: req.body.nitrogen,
+        phosphorus: req.body.phosphorus,
+        potassium: req.body.potassium,
+    }
+    console.log(post);
+    console.log(req.params.id);
+	connection.query('call editFertilizer(?, ?, ?, ?, ?, ?)', [req.params.id, post.brand, post.type, post.nitrogen, post.phosphorus, post.potassium], function(err, row){
+		if(err) res.send(err);
+		else res.send("Successful!");
+	});
+};
 
 
 
@@ -130,8 +159,10 @@ exports.editPersonnelInformation = function(req, res) {
         birthday: req.body.birthday,
         position: req.body.position,
     }
+    console.log(post);
+    console.log(req.params.id);
 	connection.query('call editUser(?, ?, ?, ?, ?, ?)', [req.params.id, post.username, post.firstname, post.lastname, post.birthday, post.position], function(err, row){
 		if(err) res.send(err);
-		else res.send(row);
+		else res.send("Successful!");
 	});
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<script type="text/javascript" src="jquery"></script>
+	<script type="text/javascript" src="angular"></script>
+	<script type="text/javascript" src="app"></script>
+		<script type="text/javascript" src="bower2"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="bower">
+	<link rel="stylesheet" type="text/css" href="localCSS">
+	<title>Proj</title>
+	<style>
+	</style>
+<head>
+<body ng-controller="loginController" class="grey lighten-3">
+
+	<div class="container white center" id="loginPanel">
+		<input placeholder="Username" id="username"/>
+		<input placeholder="Password" type="password" id="password"/>
+		<button class="btn" ng-click="login()">Login</button>
+	</div>
+
+
+	<script type="text/javascript" src="/loginDirective"></script>
+	<script type="text/javascript" src="/loginController"></script>
+
+</body>

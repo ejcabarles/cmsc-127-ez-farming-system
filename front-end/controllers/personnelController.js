@@ -9,6 +9,11 @@
             
             $scope.personnelList = [];
             $scope.showData = false;
+            $scope.username = '';
+            $scope.firstname = '';
+            $scope.lastname = '';
+            $scope.birthday = '';
+            $scope.position = '';
             
         	$http
 				.get('/viewPersonnelInformation')
@@ -65,12 +70,14 @@
             $scope.edit = function(){
                 var id = this.x.userid;
                 var param = {
-                    username: usernameField.value,
-                    firstname: fnameField.value,
-                    lastname: lnameField.value,
-                    birthday: bdayField.value,
-                    position: positionField.value,
+                    username: this.username,
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    birthday: this.bday,
+                    position: this.position
                 }
+                console.log(param);
+                console.log(id);
                 $http
                     .put('/editPersonnelInformation/' + id, param)
                     .then(function(response){
@@ -84,17 +91,9 @@
                     });
             }
 
-            $scope.toggle = function(){
-                if($scope.showData == true){
-                    $scope.showData = false;
-                    return $scope.showData;
-                }
-                else{
-                    $scope.showData = true;
-                    return $scope.showData;
-                }
-            }
-            
+            $scope.toggle = function(txt){
+                $scope.hehe=txt;
+            };
         }
 
 

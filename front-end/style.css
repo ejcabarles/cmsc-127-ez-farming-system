@@ -39,6 +39,14 @@
 	height: 80vh;
 }
 
+/*login.html*/
+
+#loginPanel{
+	width: 30vw;
+	padding: 30px;
+	margin-top: 10vh;
+}
+
 /**/
 
 #listContainer{
@@ -62,9 +70,6 @@
 body{
 	color: #3f3f3f;
 }
-
-
-
 
 .collapsible-body{
 	padding: 20px;

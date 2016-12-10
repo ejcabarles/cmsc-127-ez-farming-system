@@ -18,7 +18,11 @@ app.config(function($routeProvider) {
   .when('/fertilizer', {
     templateUrl : '/../views/fertilizer.html',
     controller  : 'fertilizerController'
+  }).when('/', {
+    templateUrl : '/../views/login.html',
+    controller  : 'loginController'
   })
 
   .otherwise({redirectTo: '/'});
+
 });

@@ -41,6 +41,9 @@ app.post('/addPlotInformation', function(req, res) {
 app.delete('/deletePlotInformation/:id', function(req, res) {
     farming_sys.deletePlotInformation(req, res);
 });
+app.put('/editPlotInformation/:id', function(req, res){
+    farming_sys.editPlotInformation(req, res);
+});
 
 
 
@@ -63,6 +66,9 @@ app.post('/addFertilizerInformation', function(req, res) {
 });
 app.delete('/deleteFertilizerInformation/:id', function(req, res){
     farming_sys.deleteFertilizerInformation(req, res);
+});
+app.put('/editFertilizerInformation/:id', function(req, res){
+    farming_sys.editFertilizerInformation(req, res);
 });
 
 
@@ -113,7 +119,7 @@ app.get('/angular-route', function(req, res) {
 
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/../front-end/index.html'));
+    res.sendFile(path.join(__dirname + '/../front-end/views/login.html'));
 });
 
 
@@ -136,6 +142,9 @@ app.get('/requestController', function(req, res) {
 app.get('/fertilizerController', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/controllers/fertilizerController.js'));
 });
+app.get('/loginController', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/controllers/loginController.js'));
+});
 
 
 app.get('/headerDirective', function(req, res) {
@@ -153,6 +162,9 @@ app.get('/requestDirective', function(req, res) {
 });
 app.get('/fertilizerDirective', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/directives/fertilizerDirective.js'));
+});
+app.get('/loginDirective', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/directives/loginDirective.js'));
 });
 
 
@@ -174,4 +186,7 @@ app.get('/request', function(req, res) {
 
 app.get('/fertilizer', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/views/fertilizer.html'));
+});
+app.get('/login', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/login.html'));
 });

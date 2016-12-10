@@ -54,8 +54,26 @@
                     });
             }
 
-            $scope.toggle = function(){
-                $scope.showData = true;
+            $scope.edit = function(){
+                var id = this.x.plotid;
+                var param = {
+                    zone: this.zone,
+                    row: this.row,
+                    col: this.col,
+                }
+                console.log(param);
+                console.log(id);
+                $http
+                    .put('/editPlotInformation/' + id, param)
+                    .then(function(response){
+                        console.log(response);
+                        $http
+                            .get('/viewPlotInformation')
+                            .then(function(response){
+                                console.log(response.data);
+                                $scope.plotList = response.data[0];
+                            });
+                    });
             }
         }
 

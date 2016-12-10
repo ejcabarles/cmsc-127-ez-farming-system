@@ -4,6 +4,8 @@
 	<script type="text/javascript" src="jquery"></script>
 	<script type="text/javascript" src="angular"></script>
 	<script type="text/javascript" src="app"></script>
+		<script type="text/javascript" src="bower2"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="bower">
@@ -49,23 +51,40 @@
 	 				</div>
 	 			</div>
 
-	 			<div class="row" ng-repeat="x in plotList">
-	 				<div class="col s1">
-	 					<h6>{{x.plotid}}</h6>
-	 				</div>
-	 				<div class="col s3">
-	 					<h6>{{x.zone}}</h6>
-	 				</div>
-	 				<div class="col s3">
-	 					<h6>{{x.row}}</h6>
-	 				</div>
-	 				<div class="col s3">
-	 					<h6>{{x.col}}</h6>
-	 				</div>
-	 				<div class="col s2">
-	 					<button ng-click="delete()" class="btn-floating btn">D</button>
-	 				</div>
-	 			</div>
+	 			<ul class="collapsible" data-collapsible="accordion">
+					<li ng-repeat="x in plotList">
+					      <div class="collapsible-header">
+						    	<div class="row">
+							    	<div class="col s1">
+										<h6>{{x.plotid}}</h6>
+									</div>
+							    	<div class="col s3">
+										<h6>{{x.zone}}</h6>
+									</div>
+									<div class="col s3">
+										<h6>{{x.row}}</h6>
+									</div>
+									<div class="col s3">
+										<h6>{{x.col}}</h6>
+									</div>
+								</div>
+					    </div>
+						<div class="collapsible-body grey lighten-4">
+							<div class="center">
+								<h6>EDIT / DELETE</h6>
+							</div>
+							<div class="row center">
+					    		<div class="col s1"><h6>{{x.plotid}}</h6></div>
+					    		<div class="col s3"><input ng-model="zone" value="{{x.zone}}" type="text" placeholder="Zone" class="validate"/></div>
+					    		<div class="col s2"><input ng-model="col" value="{{x.row}}" type="text" placeholder="Row"/></div>
+					    		<div class="col s2"><input ng-model="row" value="{{x.col}}" type="text" placeholder="Col"/></div>
+
+								<button class="btn" ng-click="edit()">Confirm Edit</button>
+								<button class="btn" ng-click="delete()">Delete</button>
+							</div>
+						</div>
+					</li>
+				</ul>
 
  			</div>
  		</div>
@@ -100,7 +119,11 @@
  </div>
 
 
-
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
 
 	
 	<script type="text/javascript" src="/plotController"></script>

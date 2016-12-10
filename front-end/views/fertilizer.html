@@ -4,6 +4,8 @@
 	<script type="text/javascript" src="jquery"></script>
 	<script type="text/javascript" src="angular"></script>
 	<script type="text/javascript" src="app"></script>
+		<script type="text/javascript" src="bower2"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="bower">
@@ -53,29 +55,48 @@
 	 			</div>
 
 
-	 			<div class="row" ng-repeat="x in fertilizerList">
-	 				<div class="col s1">
-	 					<h6>{{x.fertilizerid}}</h6>
-	 				</div>
-	 				<div class="col s3">
-	 					<h6>{{x.fertilizerbrand}}</h6>
-	 				</div>
-	 				<div class="col s3">
-	 					<h6>{{x.fertilizertype}}</h6>
-	 				</div>
-	 				<div class="col s1">
-	 					<h6>{{x.nitrogen}}</h6>
-	 				</div>
-	 				<div class="col s1">
-	 					<h6>{{x.phosphorus}}</h6>
-	 				</div>
-	 				<div class="col s1">
-	 					<h6>{{x.potassium}}</h6>
-	 				</div>
-	 				<div class="col s2">
-	 					<button ng-click="delete()" class="btn-floating btn">D</button>
-	 				</div>
-	 			</div>
+	 			<ul class="collapsible" data-collapsible="accordion">
+					<li ng-repeat="x in fertilizerList">
+					      <div class="collapsible-header">
+						    	<div class="row">
+							    	<div class="col s1">
+										<h6>{{x.fertilizerid}}</h6>
+									</div>
+							    	<div class="col s3">
+										<h6>{{x.fertilizerbrand}}</h6>
+									</div>
+							    	<div class="col s3">
+										<h6>{{x.fertilizertype}}</h6>
+									</div>
+									<div class="col s1">
+										<h6>{{x.nitrogen}}</h6>
+									</div>
+									<div class="col s1">
+										<h6>{{x.phosphorus}}</h6>
+									</div>
+									<div class="col s1">
+										<h6>{{x.potassium}}</h6>
+									</div>
+								</div>
+					    </div>
+						<div class="collapsible-body grey lighten-4">
+							<div class="center">
+								<h6>EDIT / DELETE</h6>
+							</div>
+							<div class="row center">
+					    		<div class="col s1"><h6>{{x.fertilizerid}}</h6></div>
+					    		<div class="col s3"><input ng-model="brand" value="{{x.fertilizerbrand}}" type="text" placeholder="Brand" class="validate"/></div>
+					    		<div class="col s3"><input ng-model="type" value="{{x.fertilizertype}}" type="text" placeholder="Type"/></div>
+					    		<div class="col s1"><input ng-model="n" value="{{x.nitrogen}}" type="text" placeholder="N"/></div>
+					    		<div class="col s1"><input ng-model="p" value="{{x.phosphorus}}" type="text" placeholder="P"/></div>
+					    		<div class="col s1"><input ng-model="k" value="{{x.potassium}}" type="text" placeholder="K"/></div>
+
+								<button class="btn" ng-click="edit()">Confirm Edit</button>
+								<button class="btn" ng-click="delete()">Delete</button>
+							</div>
+						</div>
+					</li>
+				</ul>
 
  			</div>
  		</div>
@@ -123,6 +144,12 @@
 		</div>
 	</div>
 
+
+<script>
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+</script>
 
 	<script type="text/javascript" src="/fertilizerDirective"></script>
 	<script type="text/javascript" src="/fertilizerController"></script>

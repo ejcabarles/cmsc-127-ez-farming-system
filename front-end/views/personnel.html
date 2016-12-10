@@ -74,15 +74,14 @@
 				<div class="center">
 					<h6>EDIT / DELETE</h6>
 				</div>
-				<div class="row">
+				<div class="row center">
 		    		<div class="col s1"><h6>{{x.userid}}</h6></div>
-		    		<div class="col s3"><input value="{{x.username}}" type="text" placeholder="Username" id="usernameField"/></div>
-		    		<div class="col s2"><input value="{{x.firstname}}" type="text" placeholder="First Name" id="fnameField"/></div>
-		    		<div class="col s2"><input value="{{x.lastname}}" type="text" placeholder="Last Name" id="lnameField"/></div>
-		    		<div class="col s2"><input value="{{x.birthday | date : 'yyyy-MM-dd' }}" type="text" placeholder="Birthday" id="bdayField"/></div>
-		    		<div class="col s2"><input value="{{x.position}}" type="text" placeholder="Position" id="positionField"/></div>
-				</div>
-				<div class="center">
+		    		<div class="col s3"><input ng-model="username" value="{{x.username}}" id="usernameField" type="text" placeholder="Username" class="validate"/></div>
+		    		<div class="col s2"><input ng-model="firstname" value="{{x.firstname}}" type="text" placeholder="First Name" id="fnameField"/></div>
+		    		<div class="col s2"><input ng-model="lastname" value="{{x.lastname}}" type="text" placeholder="Last Name" id="lnameField"/></div>
+		    		<div class="col s2"><input ng-model="bday" value="{{x.birthday | date : 'yyyy-MM-dd' }}" type="text" placeholder="Birthday" id="bdayField"/></div>
+		    		<div class="col s2"><input ng-model="position" value="{{x.position}}" type="text" placeholder="Position" id="positionField"/></div>
+
 					<button class="btn" ng-click="edit()">Confirm Edit</button>
 					<button class="btn" ng-click="delete()">Delete</button>
 				</div>
