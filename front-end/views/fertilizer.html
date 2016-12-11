@@ -21,6 +21,7 @@
           <a href="/plots" class="center">Plot</a>
           <a href="/request" class="center">Request</a>
           <a href="/fertilizer" class="center">Fertilizer</a>
+          <a href="/application" class="center">Application</a>
        </div>
     </nav>
 
@@ -34,10 +35,10 @@
 	 				<div class="col s1">
 	 					<h6>ID</h6>
 	 				</div>
-	 				<div class="col s3">
+	 				<div class="col s4">
 	 					<h6>Brand</h6>
 	 				</div>
-	 				<div class="col s3">
+	 				<div class="col s4">
 	 					<h6>Type</h6>
 	 				</div>
 	 				<div class="col s1">
@@ -49,9 +50,6 @@
 	 				<div class="col s1">
 	 					<h6>K</h6>
 	 				</div>
-	 				<div class="col s2">
-	 					<h6>Action</h6>
-	 				</div>
 	 			</div>
 
 
@@ -62,10 +60,10 @@
 							    	<div class="col s1">
 										<h6>{{x.fertilizerid}}</h6>
 									</div>
-							    	<div class="col s3">
+							    	<div class="col s4">
 										<h6>{{x.fertilizerbrand}}</h6>
 									</div>
-							    	<div class="col s3">
+							    	<div class="col s4">
 										<h6>{{x.fertilizertype}}</h6>
 									</div>
 									<div class="col s1">
@@ -85,12 +83,12 @@
 							</div>
 							<div class="row center">
 					    		<div class="col s1"><h6>{{x.fertilizerid}}</h6></div>
-					    		<div class="col s3"><input ng-model="brand" value="{{x.fertilizerbrand}}" type="text" placeholder="Brand" class="validate"/></div>
-					    		<div class="col s3"><input ng-model="type" value="{{x.fertilizertype}}" type="text" placeholder="Type"/></div>
+					    		<div class="col s4"><input ng-model="brand" value="{{x.fertilizerbrand}}" type="text" placeholder="Brand" class="validate"/></div>
+					    		<div class="col s4"><input ng-model="type" value="{{x.fertilizertype}}" type="text" placeholder="Type"/></div>
 					    		<div class="col s1"><input ng-model="n" value="{{x.nitrogen}}" type="text" placeholder="N"/></div>
 					    		<div class="col s1"><input ng-model="p" value="{{x.phosphorus}}" type="text" placeholder="P"/></div>
 					    		<div class="col s1"><input ng-model="k" value="{{x.potassium}}" type="text" placeholder="K"/></div>
-
+								<button class="btn" ng-click="copy()">Copy</button>
 								<button class="btn" ng-click="edit()">Confirm Edit</button>
 								<button class="btn" ng-click="delete()">Delete</button>
 							</div>

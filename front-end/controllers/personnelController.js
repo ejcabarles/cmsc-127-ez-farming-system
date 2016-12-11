@@ -41,13 +41,15 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.personnelList = response.data[0];
+
+
+                                username.value = '';
+                                password.value = '';
+                                fname.value = '';
+                                lname.value = '';
+                                bday.value = '';
+                                position.value = '';
                             });
-                        username.value = '';
-                        password.value = '';
-                        fname.value = '';
-                        lname.value = '';
-                        bday.value = '';
-                        position.value = '';
                     });
                 
             }
@@ -87,12 +89,24 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.personnelList = response.data[0];
+
+                                
+                                this.username = '';
+                                this.firstname = '';
+                                this.lastname = '';
+                                this.birthday = '';
+                                this.position = '';
                             });
                     });
             }
 
-            $scope.toggle = function(txt){
-                $scope.hehe=txt;
+            $scope.copy = function(txt){
+                this.username = this.x.username;
+                this.firstname = this.x.firstname;
+                this.lastname = this.x.lastname;
+                var bday = new Date(this.x.bday);
+                this.bday = bday.getFullYear() + "-" + (bday.getMonth() + 1) + "-" + bday.getDate();
+                this.position = this.x.position;
             };
         }
 

@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="localCSS">
 	<title>Proj</title>
 <head>
-<body ng-controller="requestController"  class="grey lighten-3">
+<body ng-controller="applicationController"  class="grey lighten-3">
 <div class="col s12 m12 l12">
     <nav class="grey lighten-3">
        <div class="left nav-wrapper grey lighten-3">
@@ -25,7 +25,7 @@
     </nav>
 
  <div id="collectiveContainer" class="row">
- 	<div class="col s9">
+ 	<div class="col s12">
  		<div id="plotContainer">
  			<h6>REQUEST</h6>
  			<div id="plots" class="white">
@@ -40,10 +40,7 @@
 	 				<div class="col s2">
 	 					<h6>Actual Date</h6>
 	 				</div>
-	 				<div class="col s1">
-	 					<h6>Status</h6>
-	 				</div>
-	 				<div class="col s2">
+	 				<div class="col s3">
 	 					<h6>Application Type</h6>
 	 				</div>
 	 				<div class="col s2">
@@ -57,11 +54,11 @@
 	 				</div>
 	 			</div>
 				<ul class="collapsible" data-collapsible="accordion">
-					<li ng-repeat="a in requestList">
+					<li ng-repeat="a in applicationList">
 					    <div class="collapsible-header">
 					    	<div class="row">
 						    	<div class="col s1">
-									<h6>{{a.requestid}}</h6>
+									<h6>{{a.appid}}</h6>
 								</div>
 						    	<div class="col s2">
 									<h6>{{a.planneddate | date : format : timezone}}</h6>
@@ -69,11 +66,8 @@
 								<div class="col s2">
 									<h6>{{a.actualdate | date : format : timezone}}</h6>
 								</div>
-								<div class="col s1">
-									<h6>{{a.status}}</h6>
-								</div>
-								<div class="col s2">
-									<h6>TYPE</h6>
+								<div class="col s3">
+									<h6>{{a.applicationtype}}</h6>
 								</div>
 								<div class="col s2">
 									<h6>{{a.username}}</h6>
@@ -88,8 +82,36 @@
 					    </div>
 						<div class="collapsible-body grey lighten-4">
 							<div class="center">
-								<button class="btn" ng-click="approve()" ng-disabled="{{a.status == 'APPROVED' || a.status == 'DECLINED'}}">Approve</button>
-								<button class="btn" ng-click="decline()" ng-disabled="{{a.status == 'APPROVED' || a.status == 'DECLINED'}}">Decline</button>
+								<h6>EDIT / DELETE</h6>
+							</div>
+							<div class="row center">
+					    		<div class="col s1"><h6>{{a.appid}}</h6></div>
+					    		<div class="col s2"><input ng-model="planneddate" value="{{a.planneddate}}" type="text" placeholder="Planned Date" class="validate"/></div>
+					    		<div class="col s2"><input ng-model="actualdate" value="{{a.actualdate}}" type="text" placeholder="Actual Date"/></div>
+					    		<div class="col s3"><input ng-model="applicationtype" value="{{a.applicationtype}}" type="text" placeholder="Application Type"/></div>
+					    		<div class="col s2"><span>{{a.username}}</div>
+
+
+								<div class="col s1 appplots">
+									<form action="#">
+									    <div ng-repeat="c in fertilizerList track by $index">
+									      <input type="checkbox" id="{{c.fertilizerid}}" ng-model="c.selected" /> <label for="{{c.fertilizerid}}">{{c.fertilizerid}}</label>
+									    </div>
+									</form>
+								</div>
+
+					    		<div class="col s1 appplots">
+									<form action="#">
+									    <div ng-repeat="z in plotList track by $index">
+									      <input type="checkbox" id="{{z.plotid+z.zone+z.row+z.col}}" ng-model="z.selected" /> <label for="{{z.plotid+z.zone+z.row+z.col}}">{{z.plotid}}</label>
+									    </div>
+									</form>
+								</div>
+
+
+								<button class="btn" ng-click="copy()">Copy</button>
+								<button class="btn" ng-click="edit()">Confirm Edit</button>
+								<button class="btn" ng-click="delete()">Delete</button>
 							</div>
 						</div>
 					</li>
@@ -100,72 +122,6 @@
 
  		</div>
  	</div>
-
- 	<div class="col s3">
- 		<div id="requestContainer">
- 			<h6>Send Request</h6>
-
- 			<div class="white" id="requestForm">
-				<div class="container">
-					  <div>
-					    <form>				    	
-					        <div class="row">
-					    	    <div class="input-field col s12">
-					    			<input placeholder="Application Type" id="applicationType" type="text" class="validate">
-					        	</div>
-					        </div>
-					        <div class="row">
-					    	    <div class="input-field col s12">
-					    			<input placeholder="Planned Date" id="plannedDate" type="text" class="validate">
-					        	</div>
-					        </div>
-					    	
-
-
-				<ul class="collapsible" data-collapsible="accordion">
-					<li>
-					<div class="collapsible-header">Fertilizers</div>
-					<div class="collapsible-body grey lighten-4">
-						<form action="#">
-						    <div ng-repeat="x in fertilizerList track by $index">
-						      <input type="checkbox" id="{{x.fertilizerid}}" ng-model="x.selected" /> <label for="{{x.fertilizerid}}">{{x.fertilizerid}}</label>
-						    </div>
-						</form>
-					</div>
-					</li>
-				</ul>
-
-				<ul class="collapsible" data-collapsible="accordion">
-					<li>
-					<div class="collapsible-header">Plots</div>
-					<div class="collapsible-body grey lighten-4">
-						<form action="#">
-						    <div ng-repeat="z in plotList track by $index">
-						      <input type="checkbox" id="{{z.plotid+z.zone}}" ng-model="z.selected" /> <label for="{{z.plotid+z.zone}}">{{z.plotid}}</label>
-						    </div>
-						</form>
-					</div>
-					</li>
-				</ul>
-
-
-
-
-
-
-
-
-
-					    </form>
-					  </div>
-				</div>
-			</div>
-
- 		<div class="center">
- 			<button class="btn" ng-click="submit()">SUBMIT</button>
- 		</div>
- 		</div>
- 	</div>
  </div>
 <script>
   $(document).ready(function(){
@@ -173,7 +129,7 @@
   });
 </script>
 
-	<script type="text/javascript" src="/requestDirective"></script>
-	<script type="text/javascript" src="/requestController"></script>
+	<script type="text/javascript" src="/applicationDirective"></script>
+	<script type="text/javascript" src="/applicationController"></script>
 
 </body>

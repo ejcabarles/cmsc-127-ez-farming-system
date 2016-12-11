@@ -32,10 +32,12 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.plotList = response.data[0];
+
+
+                                zone.value = '';
+                                row.value = '';
+                                col.value = '';
                             });
-                        zone.value = '';
-                        row.value = '';
-                        col.value = '';
                     });
             }
 
@@ -72,8 +74,18 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.plotList = response.data[0];
+
+                                this.zone = '';
+                                this.row = '';
+                                this.col = '';
                             });
                     });
+            }
+
+            $scope.copy = function(){
+                this.zone = this.x.zone;
+                this.row = this.x.row;
+                this.col = this.x.col;
             }
         }
 

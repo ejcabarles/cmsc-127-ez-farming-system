@@ -54,6 +54,55 @@ app.get('/viewRequestInformation', function(req, res) {
     farming_sys.viewRequestInformation(req, res);
 });
 
+app.post('/addRequest', function(req, res) {
+    farming_sys.addRequest(req, res);   
+});
+
+app.post('/addPlots', function(req, res) {
+    farming_sys.addPlots(req, res)
+});
+app.post('/addFertilizers', function(req, res) {
+    farming_sys.addFertilizers(req, res)
+});
+
+app.get('/getLastInsertId', function(req, res) {
+    farming_sys.getLastInsertId(req, res)
+});
+
+app.put('/declineRequest/:id', function(req, res) {
+    farming_sys.declineRequest(req, res)
+});
+app.put('/approveRequest/:id', function(req, res) {
+    farming_sys.approveRequest(req, res)
+});
+
+
+// APPLICATION
+app.get('/viewFertilizerApplication', function(req, res) {
+    farming_sys.viewFertilizerApplication(req, res);   
+});
+app.post('/addApplicationInformation', function(req, res) {
+    farming_sys.addApplicationInformation(req, res);   
+});
+app.post('/addAppPlot', function(req, res) {
+    farming_sys.addAppPlot(req, res);   
+});
+app.post('/addAppFertilizer', function(req, res) {
+    farming_sys.addAppFertilizer(req, res);   
+});
+app.put('/editFertilizerApplication/:id', function(req, res) {
+    farming_sys.editFertilizerApplication(req, res);   
+});
+app.delete('/deleteFertilizerApplication/:id', function(req, res) {
+    farming_sys.deleteFertilizerApplication(req, res);   
+});
+app.delete('/deleteAppPlot/:id', function(req, res) {
+    farming_sys.deleteAppPlot(req, res);   
+});
+app.delete('/deleteAppFertilizer/:id', function(req, res) {
+    farming_sys.deleteAppFertilizer(req, res);   
+});
+
 
 
 
@@ -145,6 +194,9 @@ app.get('/fertilizerController', function(req, res) {
 app.get('/loginController', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/controllers/loginController.js'));
 });
+app.get('/applicationController', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/controllers/applicationController.js'));
+});
 
 
 app.get('/headerDirective', function(req, res) {
@@ -165,6 +217,9 @@ app.get('/fertilizerDirective', function(req, res) {
 });
 app.get('/loginDirective', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/directives/loginDirective.js'));
+});
+app.get('/applicationDirective', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/directives/applicationDirective.js'));
 });
 
 
@@ -189,4 +244,7 @@ app.get('/fertilizer', function(req, res) {
 });
 app.get('/login', function(req, res) {
     res.sendFile(path.join(__dirname + '/../front-end/login.html'));
+});
+app.get('/application', function(req, res) {
+    res.sendFile(path.join(__dirname + '/../front-end/views/application.html'));
 });

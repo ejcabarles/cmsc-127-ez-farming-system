@@ -2,11 +2,12 @@
 (function() {
     angular
         .module('app')
-        .directive('request', request);
+        .directive('addRequest', addRequest);
     
-    function plot() {
+    function addRequest() {
         var directive = {
             restrict: 'E',
+            templateUrl : 'views/request.html',
             controller: 'requestController',
             controllerAs: 'request'
         }

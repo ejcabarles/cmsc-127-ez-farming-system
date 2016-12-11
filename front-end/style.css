@@ -47,6 +47,14 @@
 	margin-top: 10vh;
 }
 
+/*application.html*/
+.appplots{
+	padding: 2px;
+	height: 15vh;
+	overflow: scroll;
+	background: white;
+}
+
 /**/
 
 #listContainer{
@@ -78,5 +86,4 @@ body{
 
 .collapsible-header{
 	padding-top: 1vh;
-	height: 2vh;
 }

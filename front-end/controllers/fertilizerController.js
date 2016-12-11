@@ -35,12 +35,14 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.fertilizerList = response.data[0];
+
+
+                                brand.value = '';
+                                type.value = '';
+                                n.value = '';
+                                p.value = '';
+                                k.value = '';
                             });
-                            brand.value = '';
-                            type.value = '';
-                            n.value = '';
-                            p.value = '';
-                            k.value = '';
                     });
                 
             }
@@ -80,8 +82,23 @@
                             .then(function(response){
                                 console.log(response.data);
                                 $scope.fertilizerList = response.data[0];
+
+                                
+                                this.brand = '';
+                                this.type = '';
+                                this.n = '';
+                                this.p = '';
+                                this.k = '';
                             });
                     });
+            }
+
+            $scope.copy = function(){
+                this.brand = this.x.fertilizerbrand;
+                this.type = this.x.fertilizertype;
+                this.n = this.x.nitrogen;
+                this.p = this.x.phosphorus;
+                this.k = this.x.potassium;
             }
 
         }

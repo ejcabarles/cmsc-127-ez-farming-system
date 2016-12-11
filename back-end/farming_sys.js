@@ -68,6 +68,130 @@ exports.viewRequestInformation = function(req, res) {
 		if(err) res.send(err);
 		else res.send(row);
 	});
+}
+
+exports.addRequest = function(req, res) {
+	var post = {
+		planneddate : req.body.planneddate,
+		actualdate : req.body.actualdate,
+		applicationtype : req.body.applicationtype,
+		status : req.body.status,
+		userid : req.body.userid,
+	};
+	connection.query('call addRequest(?, ?, ?, ?, ?)', [post.planneddate, post.actualdate, post.applicationtype, post.status, post.userid], function(err, row){
+			if(err) res.send(err);
+			else res.send(row);
+		});
+
+	
+};
+
+exports.addPlots = function(req, res) {
+	console.log(req.body)
+
+	console.log(req.body.requestid)
+
+	console.log(req.body.plotid)
+	connection.query('call addReqPlot(?, ?)', [req.body.requestid, req.body.plotid], function(err, row){
+		if (err) res.send(err);
+		else res.send(row);
+	});
+};
+
+exports.addFertilizers = function(req, res) {
+	connection.query('call addReqFertilizer(?, ?)', [req.body.requestid, req.body.fertilizerid], function(err, row){
+		if (err) res.send(err);
+		else res.send(row);
+	});
+};
+
+exports.getLastInsertId = function(req, res) {
+	connection.query('SELECT LAST_INSERT_ID() as lastid', function(err, row){
+		if (err) res.send(err);
+		else res.send(row);
+	});
+};
+
+exports.declineRequest = function(req, res) {
+	connection.query('UPDATE request SET status = "DECLINED" WHERE requestid = ?', req.params.id, function(err, row){
+		if (err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.approveRequest = function(req, res) {
+	connection.query('UPDATE request SET status = "APPROVED", actualdate = curdate() WHERE requestid = ?', req.params.id, function(err, row){
+		if (err) res.send(err);
+		else res.send(row);
+	});
+};
+
+
+
+
+
+
+// APPLICATION
+exports.viewFertilizerApplication = function(req, res){
+	connection.query('call viewAllFertilizerApplication()', function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+}
+exports.addApplicationInformation = function(req, res){
+	var post = {
+		planneddate : req.body.planneddate,
+		actualdate : req.body.actualdate,
+		applicationtype : req.body.applicationtype,
+		userid : req.body.userid,
+	};
+	console.log(post);
+	connection.query('call addFertilizerApplication(?, ?, ?, ?)', [post.planneddate, post.actualdate, post.applicationtype, post.userid], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.addAppPlot = function(req, res){
+	connection.query('call addAppPlot(?, ?)', [req.body.appid, req.body.plotid], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.addAppFertilizer = function(req, res){
+	console.log(req.body);
+	connection.query('call addAppFertilizer(?, ?)', [req.body.appid, req.body.fertilizerid], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.editFertilizerApplication = function(req, res){
+	var post = {
+		planneddate: req.body.planneddate,
+		actualdate: req.body.actualdate, 
+		applicationtype: req.body.applicationtype
+	}
+	console.log(req.body);
+	connection.query('call editFertilizerApp(?, ?, ?, ?)', [req.params.id, post.planneddate, post.actualdate, post.applicationtype], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.deleteFertilizerApplication = function(req, res) {
+	connection.query('call deleteFertilizerApplication(?)', [req.params.id], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.deleteAppPlot = function(req, res) {
+	connection.query('call deleteAppPlot(?)', [req.params.id], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
+};
+exports.deleteAppFertilizer = function(req, res) {
+	connection.query('call deleteAppFertilizer(?)', [req.params.id], function(err, row){
+		if(err) res.send(err);
+		else res.send(row);
+	});
 };
 
 

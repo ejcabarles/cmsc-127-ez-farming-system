@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.27-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.28-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: farming_sys
+-- Host: localhost    Database: localhost
 -- ------------------------------------------------------
--- Server version 10.0.27-MariaDB-0ubuntu0.16.04.1
+-- Server version	10.0.28-MariaDB-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,34 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `applicationfertilizer`
+-- Table structure for table `appfertilizer`
 --
 
-DROP TABLE IF EXISTS `applicationfertilizer`;
+DROP TABLE IF EXISTS `appfertilizer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `applicationfertilizer` (
-  `appid` int(5) NOT NULL AUTO_INCREMENT,
-  `planneddate` date DEFAULT NULL,
-  `actualdate` date DEFAULT NULL,
-  `applicationtype` varchar(20) DEFAULT NULL,
-  `userid` int(4) NOT NULL,
+CREATE TABLE `appfertilizer` (
+  `appid` int(5) DEFAULT NULL,
   `fertilizerid` int(4) DEFAULT NULL,
-  PRIMARY KEY (`appid`),
-  KEY `app_userid_fk` (`userid`),
-  KEY `app_fertilizerid_fk` (`fertilizerid`),
-  CONSTRAINT `app_fertilizerid_fk` FOREIGN KEY (`fertilizerid`) REFERENCES `fertilizer` (`fertilizerid`),
-  CONSTRAINT `app_userid_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  KEY `appfertilizer_fertilizerid_fk` (`fertilizerid`),
+  KEY `appfertilizer_appid_fk` (`appid`),
+  CONSTRAINT `appfertilizer_appid_fk` FOREIGN KEY (`appid`) REFERENCES `fertilizerapplication` (`appid`) ON DELETE CASCADE,
+  CONSTRAINT `appfertilizer_fertilizerid_fk` FOREIGN KEY (`fertilizerid`) REFERENCES `fertilizer` (`fertilizerid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `applicationfertilizer`
+-- Dumping data for table `appfertilizer`
 --
 
-LOCK TABLES `applicationfertilizer` WRITE;
-/*!40000 ALTER TABLE `applicationfertilizer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `applicationfertilizer` ENABLE KEYS */;
+LOCK TABLES `appfertilizer` WRITE;
+/*!40000 ALTER TABLE `appfertilizer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `appfertilizer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -55,10 +50,10 @@ DROP TABLE IF EXISTS `appplot`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `appplot` (
   `appid` int(5) NOT NULL,
-  `plotid` int(5) NOT NULL,
+  `plotid` int(4) NOT NULL,
   KEY `appplot_appid_fk` (`appid`),
   KEY `appplot_plotid_fk` (`plotid`),
-  CONSTRAINT `appplot_appid_fk` FOREIGN KEY (`appid`) REFERENCES `app` (`appid`) ON DELETE CASCADE,
+  CONSTRAINT `appplot_appid_fk` FOREIGN KEY (`appid`) REFERENCES `fertilizerapplication` (`appid`) ON DELETE CASCADE,
   CONSTRAINT `appplot_plotid_fk` FOREIGN KEY (`plotid`) REFERENCES `plot` (`plotid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -87,7 +82,7 @@ CREATE TABLE `fertilizer` (
   `phosphorus` int(1) DEFAULT NULL,
   `potassium` int(1) DEFAULT NULL,
   PRIMARY KEY (`fertilizerid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +92,34 @@ CREATE TABLE `fertilizer` (
 LOCK TABLES `fertilizer` WRITE;
 /*!40000 ALTER TABLE `fertilizer` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fertilizer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fertilizerapplication`
+--
+
+DROP TABLE IF EXISTS `fertilizerapplication`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fertilizerapplication` (
+  `appid` int(5) NOT NULL AUTO_INCREMENT,
+  `planneddate` date DEFAULT NULL,
+  `actualdate` date DEFAULT NULL,
+  `applicationtype` varchar(50) DEFAULT NULL,
+  `userid` int(4) NOT NULL,
+  PRIMARY KEY (`appid`),
+  KEY `app_userid_fk` (`userid`),
+  CONSTRAINT `app_userid_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fertilizerapplication`
+--
+
+LOCK TABLES `fertilizerapplication` WRITE;
+/*!40000 ALTER TABLE `fertilizerapplication` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fertilizerapplication` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -119,6 +142,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
+INSERT INTO `log` VALUES ('2016-12-10 15:12:34',1,3),('2016-12-10 15:14:18',1,1),('2016-12-10 15:18:09',1,1),('2016-12-10 15:18:44',1,1),('2016-12-10 15:19:11',1,1),('2016-12-10 15:27:32',1,1),('2016-12-10 15:33:52',1,1),('2016-12-10 15:39:27',1,1);
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +159,7 @@ CREATE TABLE `plot` (
   `row` int(3) DEFAULT NULL,
   `col` int(3) DEFAULT NULL,
   PRIMARY KEY (`plotid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,6 +168,7 @@ CREATE TABLE `plot` (
 
 LOCK TABLES `plot` WRITE;
 /*!40000 ALTER TABLE `plot` DISABLE KEYS */;
+INSERT INTO `plot` VALUES (1,'A',1,2),(2,'A',2,3),(3,'A',3,4);
 /*!40000 ALTER TABLE `plot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,13 +186,10 @@ CREATE TABLE `request` (
   `applicationtype` varchar(50) DEFAULT NULL,
   `status` varchar(10) DEFAULT NULL,
   `userid` int(4) NOT NULL,
-  `fertilizerid` int(4) DEFAULT NULL,
   PRIMARY KEY (`requestid`),
   KEY `request_userid_fk` (`userid`),
-  KEY `request_fertilizerid_fk` (`fertilizerid`),
-  CONSTRAINT `request_fertilizerid_fk` FOREIGN KEY (`fertilizerid`) REFERENCES `fertilizer` (`fertilizerid`),
   CONSTRAINT `request_userid_fk` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +198,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
+INSERT INTO `request` VALUES (1,'2014-05-06','2014-05-06','npk','PENDING',1);
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -213,6 +236,32 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `requestfertilizer`
+--
+
+DROP TABLE IF EXISTS `requestfertilizer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `requestfertilizer` (
+  `requestid` int(4) DEFAULT NULL,
+  `fertilizerid` int(4) DEFAULT NULL,
+  KEY `requestfertilizer_fertilizerid_fk` (`fertilizerid`),
+  KEY `requestrequest_requestid_fk` (`requestid`),
+  CONSTRAINT `requestfertilizer_fertilizerid_fk` FOREIGN KEY (`fertilizerid`) REFERENCES `fertilizer` (`fertilizerid`) ON DELETE CASCADE,
+  CONSTRAINT `requestfertilizer_requestid_fk` FOREIGN KEY (`requestid`) REFERENCES `request` (`requestid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `requestfertilizer`
+--
+
+LOCK TABLES `requestfertilizer` WRITE;
+/*!40000 ALTER TABLE `requestfertilizer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `requestfertilizer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `requestplot`
 --
 
@@ -220,13 +269,13 @@ DROP TABLE IF EXISTS `requestplot`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `requestplot` (
-  `requestid` int(5) NOT NULL,
-  `plotid` int(5) NOT NULL,
+  `requestid` int(5) DEFAULT NULL,
+  `plotid` int(5) DEFAULT NULL,
   KEY `requestplot_requestid_fk` (`requestid`),
   KEY `requestplot_plotid_fk` (`plotid`),
   CONSTRAINT `requestplot_plotid_fk` FOREIGN KEY (`plotid`) REFERENCES `plot` (`plotid`) ON DELETE CASCADE,
   CONSTRAINT `requestplot_requestid_fk` FOREIGN KEY (`requestid`) REFERENCES `request` (`requestid`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +303,7 @@ CREATE TABLE `user` (
   `birthday` date DEFAULT NULL,
   `position` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +312,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'mark','password','mark anthony','sulleza','1998-04-01','MANAGER');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -317,25 +367,6 @@ DELIMITER ;
 --
 -- Dumping routines for database 'farming_sys'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `addAppFertilizer` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addAppFertilizer`(in pdate date, in adate date, in apptype varchar(50),in uid int(4), in fid int(4))
-begin
-insert into applicationfertilizer(planneddate, actualdate, applicationtype, userid, fertilizerid) values(pdate, adate, apptype, uid, fid);
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `addAppPlot` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -348,7 +379,26 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addAppPlot`(in aid int(5), in pid int(5))
 begin 
-insert into appPlot(appid, plotid) values(aid, pid);
+insert into appplot(appid, plotid) values(aid, pid);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `addFertilizer` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addAppFertilizer`(in aid int(5), in fid int(4))
+begin 
+insert into appfertilizer(appid, fertilizerid) values(aid, fid);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -374,6 +424,23 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `addFertilizerApplication` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addFertilizerApplication`(in pdate date, in adate date, in apptype varchar(50),in uid int(4))
+begin insert into fertilizerapplication(planneddate, actualdate, applicationtype, userid) values(pdate, adate, apptype, uid); end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `addPlot` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -387,6 +454,25 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `addPlot`(in z varchar(3), in r int(3), in c int(3))
 begin
 insert into plot(zone, row, col) values(z, r, c);
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `addReqFertilizer` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addReqFertilizer`(in aid int(5), in fid int(5))
+begin 
+insert into requestfertilizer(requestid, fertilizerid) values(aid, fid);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -422,9 +508,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addRequest`(in pdate date, in adate date, in apptype varchar(50), in stat varchar(10), in uid int(4), in fid int(4))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `addRequest`(in pdate date, in adate date, in apptype varchar(50), in stat varchar(10), in uid int(4))
 begin
-insert into request(planneddate, actualdate, applicationtype, status, userid, fertilizerid) values(pdate, adate, apptype, stat, uid, fid);
+insert into request(planneddate, actualdate, applicationtype, status, userid) values(pdate, adate, apptype, stat, uid);
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -450,25 +536,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `deleteApplicationFertilizer` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteApplicationFertilizer`(in afid int)
-begin 
-delete from fertilizer where fertilizerid = afid;
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `deleteFertilizer` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -482,6 +549,63 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteFertilizer`(in fid int)
 begin 
 delete from fertilizer where fertilizerid = fid;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deleteFertilizerApplication` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteFertilizerApplication`(in afid int)
+begin 
+delete from fertilizerapplication where appid = afid;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deletePlot` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAppPlot`(in afid int)
+begin 
+delete from appplot where appid = afid;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deletePlot` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteAppFertilizer`(in afid int)
+begin 
+delete from appfertilizer where appid = afid;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -545,25 +669,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `editAppFertilizer` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editAppFertilizer`(in aid int(5), in pdate date, in adate date, in apptype varchar(50),in uid int(4), in fid int(4))
-begin
-update applicationfertilizer set planneddate=pdate, actualdate=adate, applicationtype=apptype, userid=uid, fertilizerid=fid where appid = aid;
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `editFertilizer` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -575,7 +680,28 @@ DELIMITER ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `editFertilizer`(in fid int(4), in fbrand varchar(20), in ftype varchar(20), in n int(1), in p int(1), in k int (1))
-begin update fertilizer set fertilizerbrand=fbrand, fertilizertype=ftype, nitrogen=n, phosphorus=p, potassium=k where fertilizerid = fid; end ;;
+begin
+update fertilizer set fertilizerbrand=fbrand, fertilizertype=ftype, nitrogen=n, phosphorus=p, potassium=k where fertilizerid = fid;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `editFertilizerApp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editFertilizerApp`(in aid int(5), in pdate date, in adate date, in apptype varchar(50))
+begin
+update fertilizerapplication set planneddate=pdate, actualdate=adate, applicationtype=apptype where appid = aid;
+end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -610,9 +736,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editRequest`(in rid int(5), in pdate date, in adate date, in apptype varchar(50), in stat varchar(10), in uid int(4), in fid int(4))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editRequest`(in rid int(5), in pdate date, in adate date, in apptype varchar(50), in stat varchar(10), in uid int(4))
 begin
-update request set planneddate=pdate, actualdate=adate, applicationtype=apptype, status=stat, userid=uid, fertilizerid=fid where requestid = rid;
+update request set planneddate=pdate, actualdate=adate, applicationtype=apptype, status=stat, userid=uid where requestid = rid;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -629,26 +755,9 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editUser`(in uid int(4), in uname varchar(50), in ufname varchar(50), in ulname varchar(50), in bday date, in pos varchar(5))
-begin  update user set username = uname, firstname = ufname, lastname = ulname, birthday = bday, position = pos where userid = uid; end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `viewAllApplicationFertilizer` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAllApplicationFertilizer`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editUser`(in uid int(4), in uname varchar(50), in pwd varchar(50), in ufname varchar(50), in ulname varchar(50), in bday date, in pos varchar(5))
 begin 
-select * from applicationfertilizer;
+update user set username = uname, password =  pwd, firstname = ufname, lastname = ulname, birthday = bday, position = pos where userid = uid;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -668,6 +777,25 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAllFertilizer`()
 begin 
 select * from fertilizer;
+end ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `viewAllFertilizerApplication` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAllFertilizerApplication`()
+begin 
+select a.appid, a.planneddate, a.actualdate, a.applicationtype, p.username, f.fertilizerid, pl.plotid from fertilizerapplication a natural join user p natural join appfertilizer f natural join appplot pl;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -705,7 +833,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `viewAllRequest`()
 begin 
-select * from request;
+select r.requestid, r.planneddate, r.actualdate, r.status, r.applicationtype, p.username, f.fertilizerid, pl.plotid from request r natural join user p natural join requestfertilizer f natural join requestplot pl;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -741,4 +869,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-08 17:32:12
+-- Dump completed on 2016-12-10 22:24:30

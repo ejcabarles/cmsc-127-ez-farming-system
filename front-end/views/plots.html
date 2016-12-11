@@ -23,6 +23,7 @@
           <a href="/plots" class="center">Plot</a>
           <a href="/request" class="center">Request</a>
           <a href="/fertilizer" class="center">Fertilizer</a>
+          <a href="/application" class="center">Application</a>
        </div>
     </nav>
  </div>
@@ -40,14 +41,11 @@
 	 				<div class="col s3">
 	 					<h6>Zone</h6>
 	 				</div>
-	 				<div class="col s3">
+	 				<div class="col s4">
 	 					<h6>Row</h6>
 	 				</div>
-	 				<div class="col s3">
+	 				<div class="col s4">
 	 					<h6>Column</h6>
-	 				</div>
-	 				<div class="col s2">
-	 					<h6>Action</h6>
 	 				</div>
 	 			</div>
 
@@ -61,10 +59,10 @@
 							    	<div class="col s3">
 										<h6>{{x.zone}}</h6>
 									</div>
-									<div class="col s3">
+									<div class="col s4">
 										<h6>{{x.row}}</h6>
 									</div>
-									<div class="col s3">
+									<div class="col s4">
 										<h6>{{x.col}}</h6>
 									</div>
 								</div>
@@ -76,9 +74,10 @@
 							<div class="row center">
 					    		<div class="col s1"><h6>{{x.plotid}}</h6></div>
 					    		<div class="col s3"><input ng-model="zone" value="{{x.zone}}" type="text" placeholder="Zone" class="validate"/></div>
-					    		<div class="col s2"><input ng-model="col" value="{{x.row}}" type="text" placeholder="Row"/></div>
-					    		<div class="col s2"><input ng-model="row" value="{{x.col}}" type="text" placeholder="Col"/></div>
+					    		<div class="col s4"><input ng-model="row" value="{{x.row}}" type="text" placeholder="Row"/></div>
+					    		<div class="col s4"><input ng-model="col" value="{{x.col}}" type="text" placeholder="Col"/></div>
 
+								<button class="btn" ng-click="copy()">Copy</button>
 								<button class="btn" ng-click="edit()">Confirm Edit</button>
 								<button class="btn" ng-click="delete()">Delete</button>
 							</div>
